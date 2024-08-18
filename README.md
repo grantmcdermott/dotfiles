@@ -1,2 +1,3 @@
-# dotfiles
-Dotfiles, configs, etc.
+# Dotfiles
+
+A sample of my dotfiles, configs, etc.
