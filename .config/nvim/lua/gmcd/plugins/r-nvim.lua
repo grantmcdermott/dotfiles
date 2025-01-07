@@ -1,6 +1,10 @@
 return {
 	"R-nvim/R.nvim",
 	lazy = false,
+	-- R.nvim is still young and we may make some breaking changes from time
+	-- to time. For now we recommend pinning to the latest minor version
+	-- like so:
+	version = "~0.1.0",
 	opts = {
 		-- Create a table with the options to be passed to setup()
 		auto_start = "on startup",
