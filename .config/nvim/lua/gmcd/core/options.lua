@@ -14,6 +14,7 @@ opt.autoindent = true -- copy indent from current line when starting new one
 
 -- line wrapping
 opt.wrap = false -- disable line wrapping
+opt.textwidth = 80 -- set text width for gq formatting
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching
