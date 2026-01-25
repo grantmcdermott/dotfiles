@@ -1,0 +1,1 @@
+/Users/gmcd/.p10k.zsh
