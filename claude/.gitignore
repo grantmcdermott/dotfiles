@@ -8,6 +8,7 @@ sessions/
 projects/
 
 # Caches & transient artifacts
+plugins/
 cache/
 file-history/
 paste-cache/
