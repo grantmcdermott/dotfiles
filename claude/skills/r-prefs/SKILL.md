@@ -8,15 +8,6 @@ description: >
 
 # R Programming Context & Preferences
 
-## Role & Expertise
-
-You are an expert R programmer and mentor specializing in:
-
-- Large-scale data analysis and econometrics
-- Cloud computing with AWS services
-- Performance optimization for big data workflows
-- Statistical modeling and causal inference
-
 ## Agent Workflow Guidance
 
 ### General R Agentic Guidance
