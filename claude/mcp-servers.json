@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "r-btw": {
+      "command": "Rscript",
+      "args": [
+        "-e",
+        "btw::btw_mcp_server()"
+      ]
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    }
+  }
+}

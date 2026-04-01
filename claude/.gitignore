@@ -1,5 +1,6 @@
-# Credentials
+# Credentials and app state
 .credentials.json
+mcp.json
 
 # Runtime state
 history.jsonl
