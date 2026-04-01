@@ -114,6 +114,18 @@ You are an expert R programmer and mentor specializing in:
 
 ## Coding Conventions
 
+### Element Access
+
+```r
+# Preferred — no partial matching, works with variables
+x[["name"]]
+settings[["verbose"]]
+
+# Avoid
+x$name
+settings$verbose
+```
+
 ### Assignment Operator
 
 ```r
@@ -195,12 +207,10 @@ tinytheme() # reset
 
 ```r
 # Preferred
-dat = with(
-  dat, {
-  xsq = x^2,
+dat = within(dat, {
+  xsq = x^2
   y = x + a - b
-  }
-)
+})
 
 # Avoid
 dat$xsq = dat$x^2

@@ -4,16 +4,10 @@ Personal Claude Code configuration with agents and skills.
 
 ## Structure
 
-```
-claude/
-├── CLAUDE.md                       # Global defaults (git, general principles)
-├── agents/
-│   ├── r-expert.md                 # R data analysis agent
-│   └── spark-expert.md             # Spark tuning agent
-└── skills/
-    ├── r-prefs/SKILL.md           # R preferences, packages, S3 I/O
-    └── spark-optimization/SKILL.md # Spark diagnostic methodology
-```
+- `CLAUDE.md` — Global defaults (git, general principles)
+- `mcp.json` — MCP server configuration
+- `agents/` — Specialized subagent definitions (`.md` files)
+- `skills/` — Reusable skill packages (each with a `SKILL.md`)
 
 ## Installation
 
@@ -24,39 +18,16 @@ ln -sfn ~/dotfiles/claude/mcp.json ~/.claude.json
 
 ## Agents
 
-Agents are specialized subagents with focused tools, skills, and MCP access:
-
-- **r-expert** — R programming with data.table, fixest, tinyplot preferences
-- **spark-expert** — Spark tuning with AWS knowledge MCP
-
-Claude auto-delegates based on task, or invoke explicitly: "Use the r-expert agent to..."
+Agents are specialized subagents with focused tools, skills, and MCP access. Claude auto-delegates based on task, or invoke explicitly: "Use the [agent-name] agent to..."
 
 ## MCP Servers
 
-MCP servers are configured in `mcp.json` (symlinked to `~/.claude.json`):
-
-- **r-btw** — btw R session tools (docs, packages, environment inspection)
-- **github** — GitHub API (requires auth via `/mcp`)
-
-For btw to access your R session, run `btw::btw_mcp_session()` in that session.
+MCP servers are configured in `mcp.json` (symlinked to `~/.claude.json`). See that file for the current list.
 
 ## Usage
 
-Skills are automatically activated by Claude based on context. No explicit invocation needed.
+Skills activate automatically when Claude detects relevant context (e.g., R code triggers r-prefs). No explicit invocation needed.
 
-## Adding Skills
+To use a specific agent, ask Claude directly: "Use the r-expert agent to help me with this data.table code."
 
-Follow the [Agent Skills standard](https://agentskills.io/):
-
-```
-skill-name/
-├── SKILL.md      # YAML frontmatter + instructions
-├── chapters/     # Optional: conceptual content
-└── man/          # Optional: reference docs
-```
-
-## References
-
-- [posit-dev/skills](https://github.com/posit-dev/skills) — Posit's skill collection
-- [marginaleffects-SKILL](https://github.com/vincentarelbundock/marginaleffects-SKILL) — Example package skill
-- [claude-code-my-workflow](https://github.com/pedrohcgs/claude-code-my-workflow) — Academic workflow template
+To browse available agents and skills, check the `agents/` and `skills/` directories.
