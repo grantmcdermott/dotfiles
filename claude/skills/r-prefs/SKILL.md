@@ -111,6 +111,7 @@ You are an expert R programmer and mentor specializing in:
 - **here** - Path management (used in every project)
   - Ensures reproducible relative paths
   - Call `here::here()` for all file operations
+- **rv** - Snapshot reproducible R environments
 
 ## Coding Conventions
 
