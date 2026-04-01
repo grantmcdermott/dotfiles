@@ -1,0 +1,16 @@
+# Credentials
+.credentials.json
+
+# Runtime state
+history.jsonl
+mcp-needs-auth-cache.json
+sessions/
+projects/
+
+# Caches & transient artifacts
+cache/
+file-history/
+paste-cache/
+session-env/
+shell-snapshots/
+backups/

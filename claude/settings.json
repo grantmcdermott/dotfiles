@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__r-btw__btw_tool_session_platform_info",
+      "mcp__r-btw__list_r_sessions",
+      "mcp__r-btw__btw_tool_session_check_package_installed",
+      "mcp__r-btw__btw_tool_docs_package_help_topics",
+      "mcp__r-btw__btw_tool_session_package_info",
+      "mcp__r-btw__btw_tool_docs_help_page",
+      "mcp__r-btw__btw_tool_web_read_url",
+      "mcp__r-btw__btw_tool_files_read_text_file",
+      "mcp__r-btw__btw_tool_env_describe_data_frame",
+      "mcp__r-btw__btw_tool_env_describe_environment",
+      "mcp__r-btw__select_r_session",
+      "mcp__r-btw__btw_tool_files_code_search",
+      "mcp__r-btw__btw_tool_git_diff",
+      "mcp__r-btw__btw_tool_docs_package_news",
+      "mcp__r-btw__btw_tool_files_list_files",
+      "mcp__r-btw__btw_tool_docs_vignette",
+      "mcp__r-btw__btw_tool_search_package_info",
+      "mcp__r-btw__btw_tool_search_packages",
+      "mcp__r-btw__btw_tool_docs_available_vignettes",
+      "mcp__r-btw__btw_tool_git_branch_list",
+      "mcp__r-btw__btw_tool_git_status",
+      "mcp__r-btw__btw_tool_git_log",
+      "mcp__r-btw__btw_tool_ide_read_current_editor"
+    ]
+  },
+  "effortLevel": "high"
+}
