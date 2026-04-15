@@ -14,6 +14,9 @@ lsp.config["air"] = {
 
 lsp.enable("air")
 
+-- Jarl R linter (https://jarl.etiennebacher.com/howto/editors)
+lsp.enable("jarl")
+
 -- Disable r_language_server formatting so only Air handles it
 lsp.config["r_language_server"] = {
 	on_attach = function(client, _)
