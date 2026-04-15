@@ -34,6 +34,8 @@ brew install --cask font-meslo-lg-nerd-font ghostty
 
 ```bash
 sudo pacman -S neovim lazygit ripgrep fd stow ghostty ttf-meslo-nerd
+# If ghostty is not in the repos yet:
+# yay -S ghostty
 ```
 
 - [Oh My Zsh](https://ohmyz.sh/) with
