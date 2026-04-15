@@ -17,8 +17,13 @@ local function send_to_repl()
 	if ft == "r" or ft == "rmd" or ft == "quarto" then
 		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>RDSendLine", true, true, true), "m", false)
 	elseif ft == "python" then
-		local line = vim.api.nvim_get_current_line()
-		require("toggleterm").exec(line, 1)
+		require("iron.core").send_line()
+		-- Advance cursor to next line
+		local row = vim.api.nvim_win_get_cursor(0)[1]
+		local last = vim.api.nvim_buf_line_count(0)
+		if row < last then
+			vim.api.nvim_win_set_cursor(0, { row + 1, 0 })
+		end
 	end
 end
 
@@ -27,9 +32,8 @@ local function send_selection_to_repl()
 	if ft == "r" or ft == "rmd" or ft == "quarto" then
 		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>RSendSelection", true, true, true), "m", false)
 	elseif ft == "python" then
-		vim.cmd('normal! "vy')
-		local text = vim.fn.getreg("v")
-		require("toggleterm").exec(text, 1)
+		require("iron.core").visual_send()
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
 	end
 end
 
