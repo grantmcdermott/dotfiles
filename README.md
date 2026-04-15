@@ -21,11 +21,19 @@ that point into this repo, so the repo is always the source of truth.
 
 ### Prerequisites
 
-Install system dependencies via Homebrew:
+Install system dependencies:
+
+**macOS (Homebrew):**
 
 ```bash
 brew install neovim lazygit ripgrep fd stow
 brew install --cask font-meslo-lg-nerd-font ghostty
+```
+
+**Arch Linux (pacman):**
+
+```bash
+sudo pacman -S neovim lazygit ripgrep fd stow ghostty ttf-meslo-nerd
 ```
 
 - [Oh My Zsh](https://ohmyz.sh/) with

@@ -5,10 +5,17 @@ Lightly modified from Josean Martinez's excellent
 
 ## System Dependencies
 
-Install via Homebrew (macOS):
+**macOS (Homebrew):**
 
 ```bash
 brew install neovim lazygit ripgrep fd
+brew install --cask font-meslo-lg-nerd-font
+```
+
+**Arch Linux (pacman):**
+
+```bash
+sudo pacman -S neovim lazygit ripgrep fd ttf-meslo-nerd
 ```
 
 - [Neovim](https://neovim.io/) (>= 0.9)
