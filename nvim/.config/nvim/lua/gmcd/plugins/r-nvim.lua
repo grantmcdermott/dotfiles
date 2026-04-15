@@ -1,6 +1,8 @@
 return {
 	"R-nvim/R.nvim",
 	lazy = false,
+	-- Don't load when Neovim is embedded in VS Code or Positron
+	cond = not vim.g.vscode,
 	-- R.nvim is still young and we may make some breaking changes from time
 	-- to time. For now we recommend pinning to the latest minor version
 	-- like so:
