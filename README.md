@@ -21,13 +21,17 @@ that point into this repo, so the repo is always the source of truth.
 
 ### Prerequisites
 
+Install system dependencies via Homebrew:
+
+```bash
+brew install neovim lazygit ripgrep fd stow
+brew install --cask font-meslo-lg-nerd-font ghostty
+```
+
 - [Oh My Zsh](https://ohmyz.sh/) with
   [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) and
   [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme
-- [GNU Stow](https://www.gnu.org/software/stow/): `brew install stow`
-- Neovim system deps: [LazyGit](https://github.com/jesseduffield/lazygit),
-  [Nerd Fonts](https://www.nerdfonts.com/) (MesloLGS NF recommended)
 
 ### Setup
 
