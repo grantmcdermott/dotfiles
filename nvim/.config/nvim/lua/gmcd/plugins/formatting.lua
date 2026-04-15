@@ -20,6 +20,9 @@ return {
         liquid = { "prettier" },
         lua = { "stylua" },
         python = { "isort", "black" },
+        r = { "air" },
+        quarto = { "injected" },
+        rmd = { "injected" },
       },
       format_on_save = {
         lsp_fallback = true,
