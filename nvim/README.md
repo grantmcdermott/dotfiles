@@ -169,6 +169,8 @@ Press the leader key and wait to see available mappings via
 | Key | Action |
 |-----|--------|
 | `<space>tt` | Toggle floating terminal |
+| `<space>th` | Toggle horizontal split terminal |
+| `<space>tv` | Toggle vertical split terminal |
 | `<Esc><Esc>` | Dismiss terminal (from inside) |
 
 ### Sessions
