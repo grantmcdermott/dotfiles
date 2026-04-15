@@ -2,3 +2,6 @@ font-family = MesloLGS Nerd Font Mono
 font-size = 19
 background-opacity = 0.9
 theme = Argonaut
+
+# Pass Cmd+Enter through to nvim (instead of fullscreen)
+keybind = super+enter=unbind

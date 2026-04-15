@@ -81,6 +81,17 @@ Press the leader key and wait to see available mappings via
 
 ## Key Mappings
 
+### IDE-style shortcuts
+
+These mirror VS Code / Positron keybindings. Use `Cmd` on macOS, `Ctrl`
+on Linux.
+
+| Key | Action |
+|-----|--------|
+| `Cmd+/` | Toggle comment (line or selection) |
+| `Cmd+Enter` | Send line/selection to REPL (R or Python) |
+| `<space>rr` | Start R (R filetypes only) |
+
 ### General
 
 | Key | Action |
