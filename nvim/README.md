@@ -35,6 +35,7 @@ open). Plugins are auto-installed on first launch.
 | [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)           | LazyGit TUI inside nvim                                                                 |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)        | Git gutter signs, hunk staging, inline blame                                            |
 | [trouble.nvim](https://github.com/folke/trouble.nvim)              | Diagnostics and TODO list panel                                                         |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | AI agent integration via ACP (Kiro, Claude Code)                                     |
 | [R.nvim](https://github.com/R-nvim/R.nvim)                         | R console, help, object browser                                                         |
 | [iron.nvim](https://github.com/Vigemus/iron.nvim)                  | Interactive Python REPL (emulates R.nvim ergonomics)                                    |
 | [uv.nvim](https://github.com/benomahony/uv.nvim)                   | Python package management via [uv](https://github.com/astral-sh/uv)                     |
@@ -62,6 +63,7 @@ open). Plugins are auto-installed on first launch.
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                       | Shows available keybindings after pressing leader |
 | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indentation guides                                |
 | [dressing.nvim](https://github.com/stevearc/dressing.nvim)                      | Improved input/select UI                          |
+| [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Renders markdown in-buffer (headings, code blocks, etc.) |
 
 ### Language support (mostly automatic)
 
@@ -212,6 +214,19 @@ on Linux.
 | `<space>l`  | Trigger linting          |
 | `<space>gl` | Open Lazy plugin manager |
 | `<space>mp` | Format file/selection    |
+
+### AI (CodeCompanion)
+
+Requires `CODECOMPANION_AGENT` set in `~/.zshrc.local` (e.g., `"kiro"` or
+`"claude_code"`). Without it, `<space>aa` shows a setup prompt.
+
+| Key         | Action                        |
+| ----------- | ----------------------------- |
+| `<space>aa` | Action palette                |
+| `<space>ac` | Toggle chat buffer            |
+| `<space>ai` | New chat                      |
+| `<space>al` | Open CLI agent                |
+| `ga`        | Add selection to chat (visual)|
 
 ### R.nvim (local leader: `,`)
 

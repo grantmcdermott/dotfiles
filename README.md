@@ -76,6 +76,8 @@ Typical contents for `.zshrc.local`:
 - SSH key loading
 - Editor shell integrations (e.g., Kiro, VS Code)
 - Language-specific environment variables (e.g., `JAVA_HOME`)
+- `CODECOMPANION_AGENT` — set to `"kiro"` or `"claude_code"` to enable the
+  Neovim AI agent integration (see [CodeCompanion.nvim](https://codecompanion.olimorris.dev))
 
 ## Ergonomics
 
@@ -107,6 +109,7 @@ where the first (noun) letter identifies the domain:
 | `l`    | **l**azy                  | `ll` Lazy plugin manager                                                                |
 | `r`    | **R** (R filetypes only)  | `rr` start R                                                                            |
 | `u`    | **u**v (Python filetypes) | `ui` init, `ua` add, `ur` run, `uc` sync                                                |
+| `a`    | **a**i (AI CodeCompanion) | `aa` action palette, `ac` toggle chat, `ai` new chat, `al` CLI agent                    |
 | `,`    | localleader (R.nvim)      | `,a` all, `,c` chunks, `,k` knit, `,v` view, etc.                                       |
 
 ### IDE-familiar shortcuts
