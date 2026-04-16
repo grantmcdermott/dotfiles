@@ -45,7 +45,7 @@ sudo pacman -S neovim lazygit ripgrep fd stow ghostty ttf-meslo-nerd
 
 ### Setup
 
-Clone the repo and stow the packages you want:
+Clone the repo and [stow](https://www.gnu.org/software/stow/) the packages you want:
 
 ```bash
 git clone https://github.com/<username>/dotfiles.git ~/dotfiles
@@ -77,9 +77,52 @@ Typical contents for `.zshrc.local`:
 - Editor shell integrations (e.g., Kiro, VS Code)
 - Language-specific environment variables (e.g., `JAVA_HOME`)
 
+## Ergonomics
+
+A few design principles run across the configs:
+
+### Vim-style navigation everywhere
+
+- Ghostty + Neovim: `Cmd+Enter` is unbound in Ghostty so it passes through to
+  nvim (send-to-REPL). Raycast's `Alt+m` (maximize) replaces the default
+  macOS `Cmd+Enter` fullscreen toggle.
+- Telescope: `Ctrl+j`/`Ctrl+k` to move through results.
+- Raycast window management: `Alt+h/j/k/l` for left/bottom/top/right halves.
+- Radian (R terminal REPL): vi editing mode.
+
+### Mnemonic leader keys (Neovim)
+
+Leader is `Space`. Most Neovim bindings follow a `<Space><noun><verb>` pattern
+where the first letter identifies the domain:
+
+| Prefix | Domain | Examples |
+|--------|--------|----------|
+| `f` | **f**ind (Telescope) | `ff` files, `fs` string, `fr` recent, `fc` cursor word, `ft` todos |
+| `e` | **e**xplorer (nvim-tree) | `ee` toggle, `ef` find file, `ec` collapse, `er` refresh |
+| `s` | **s**plits / windows | `sv` vertical, `sh` horizontal, `se` equalise, `sx` close, `sm` maximise |
+| `t` | **t**abs / **t**erminal | `to` new tab, `tx` close, `tn`/`tp` next/prev; `tt`/`th`/`tv` terminal float/horiz/vert |
+| `x` | diagnostics (Trouble) | `xw` workspace, `xd` document, `xq` quickfix, `xl` loclist, `xt` todos |
+| `w` | **w**orkspace (sessions) | `wr` restore, `ws` save |
+| `l` | **l**azy / la**z**ygit | `lg` lazygit, `lz` Lazy plugin manager |
+| `r` | **R** (R filetypes only) | `rr` start R |
+| `,` | localleader (R.nvim) | `,a` all, `,c` chunks, `,k` knit, `,v` view, etc. |
+
+### IDE-familiar shortcuts
+
+`Cmd+/` (macOS) or `Ctrl+/` (Linux) toggles comments. `Cmd+Enter` or
+`Ctrl+Enter` sends the current line or selection to the appropriate REPL
+(R.nvim for R files, iron.nvim for Python). These mirror Positron / VS Code
+muscle memory.
+
+### Format on save
+
+Conform.nvim auto-formats on save. R uses [Air](https://posit-dev.github.io/air/),
+Lua uses stylua, Python uses isort + black, and web languages use prettier.
+`<Space>mp` manually formats a file or visual selection.
+
 ## Notes
 
-- The Neovim config is lightly modified from Josean Martinez's excellent
+- The Neovim config is adapted from Josean Martinez's excellent
   [guide](https://www.josean.com/posts/how-to-setup-neovim-2024).
 - The `claude/` directory contains Claude Code / Kiro CLI configuration and is
   not stowed automatically since its target path varies by setup.

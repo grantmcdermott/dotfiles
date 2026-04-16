@@ -1,7 +1,9 @@
 # Neovim Config
 
-Lightly modified from Josean Martinez's excellent
-[guide](https://www.josean.com/posts/how-to-setup-neovim-2024).
+Adapted from Josean Martinez's excellent
+[guide](https://www.josean.com/posts/how-to-setup-neovim-2024),
+with additional focus on the data science tools that I use in my daily
+workflow.
 
 ## System Dependencies
 
@@ -35,7 +37,7 @@ open). Plugins are auto-installed on first launch.
 | [trouble.nvim](https://github.com/folke/trouble.nvim)              | Diagnostics and TODO list panel                                                         |
 | [R.nvim](https://github.com/R-nvim/R.nvim)                         | R console, help, object browser                                                         |
 | [iron.nvim](https://github.com/Vigemus/iron.nvim)                  | Interactive Python REPL (emulates R.nvim ergonomics)                                    |
-| [uv.nvim](https://github.com/benomahony/uv.nvim)                   | Python package management via [uv](https://github.com/astral-sh/uv)                    |
+| [uv.nvim](https://github.com/benomahony/uv.nvim)                   | Python package management via [uv](https://github.com/astral-sh/uv)                     |
 | [neotest](https://github.com/nvim-neotest/neotest)                 | Test runner (with [testthat](https://github.com/shunsambongi/neotest-testthat) adapter) |
 
 ### Editing
@@ -72,6 +74,16 @@ open). Plugins are auto-installed on first launch.
 | [conform.nvim](https://github.com/stevearc/conform.nvim)              | Code formatting                                |
 | [nvim-lint](https://github.com/mfussenegger/nvim-lint)                | Linting                                        |
 | [auto-session](https://github.com/rmagatti/auto-session)              | Saves/restores sessions per project            |
+
+### R tooling stack
+
+Three LSP-level tools cooperate for R files:
+
+- **[Air](https://posit-dev.github.io/air/)** — formatting (format-on-save via LSP)
+- **[Jarl](https://jarl.etiennebacher.com/)** — linting
+- **r\_language\_server** — completions and hover (formatting disabled so Air owns it)
+
+The split is toggled in `core/init.lua` with a single require swap.
 
 ## Leader Keys
 
@@ -243,14 +255,14 @@ REPL (IPython if available, plain Python as fallback) running through
 [uv](https://github.com/astral-sh/uv), so the project's virtual environment
 is used automatically.
 
-| Key         | Action                                |
-| ----------- | ------------------------------------- |
-| `Cmd+Enter` | Send line (normal) / selection (visual) to IPython |
-| `:IronRepl` | Start the Python REPL manually        |
-| `:UVAdd`    | Add a package (e.g., `:UVAdd polars`) |
-| `:UVRemove` | Remove a package                      |
-| `:UVRunFile`| Run the current file                  |
-| `:UVInit`   | Initialize a new uv project           |
+| Key          | Action                                             |
+| ------------ | -------------------------------------------------- |
+| `Cmd+Enter`  | Send line (normal) / selection (visual) to IPython |
+| `:IronRepl`  | Start the Python REPL manually                     |
+| `:UVAdd`     | Add a package (e.g., `:UVAdd polars`)              |
+| `:UVRemove`  | Remove a package                                   |
+| `:UVRunFile` | Run the current file                               |
+| `:UVInit`    | Initialize a new uv project                        |
 
 Requires `uv` installed on the system. For IPython support, add it to
 your project: `uv add ipython`.
