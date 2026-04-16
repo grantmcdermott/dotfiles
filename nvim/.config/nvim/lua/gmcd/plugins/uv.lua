@@ -1,5 +1,7 @@
 return {
 	"benomahony/uv.nvim",
 	ft = { "python" },
-	opts = {},
+	opts = {
+		keymaps = { prefix = "<leader>u" },
+	},
 }

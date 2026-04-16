@@ -22,7 +22,7 @@ sudo pacman -S neovim lazygit ripgrep fd ttf-meslo-nerd
 
 ## Plugins
 
-Managed by [lazy.nvim](https://github.com/folke/lazy.nvim) (`<space>lz` to
+Managed by [lazy.nvim](https://github.com/folke/lazy.nvim) (`<space>ll` to
 open). Plugins are auto-installed on first launch.
 
 ### Core workflow
@@ -167,7 +167,7 @@ on Linux.
 
 | Key         | Action       |
 | ----------- | ------------ |
-| `<space>lg` | Open LazyGit |
+| `<space>gg` | Open LazyGit |
 
 ### LSP
 
@@ -210,7 +210,7 @@ on Linux.
 | Key         | Action                   |
 | ----------- | ------------------------ |
 | `<space>l`  | Trigger linting          |
-| `<space>lz` | Open Lazy plugin manager |
+| `<space>gl` | Open Lazy plugin manager |
 | `<space>mp` | Format file/selection    |
 
 ### R.nvim (local leader: `,`)
@@ -255,14 +255,22 @@ REPL (IPython if available, plain Python as fallback) running through
 [uv](https://github.com/astral-sh/uv), so the project's virtual environment
 is used automatically.
 
+The uv.nvim default keymap prefix is changed from `<leader>x` to `<leader>u`
+to avoid conflicting with trouble.nvim diagnostics.
+
 | Key          | Action                                             |
 | ------------ | -------------------------------------------------- |
+| `<space>u`   | Show uv commands menu                              |
+| `<space>ua`  | Add a package                                      |
+| `<space>ud`  | Remove a package                                   |
+| `<space>ur`  | Run current file                                   |
+| `<space>us`  | Run selected code (visual mode)                    |
+| `<space>uf`  | Run a specific function                            |
+| `<space>uc`  | Sync packages                                      |
+| `<space>uC`  | Sync all (extras + groups)                         |
+| `<space>ue`  | Environment management                             |
+| `<space>ui`  | Initialize a new uv project                        |
 | `Cmd+Enter`  | Send line (normal) / selection (visual) to IPython |
-| `:IronRepl`  | Start the Python REPL manually                     |
-| `:UVAdd`     | Add a package (e.g., `:UVAdd polars`)              |
-| `:UVRemove`  | Remove a package                                   |
-| `:UVRunFile` | Run the current file                               |
-| `:UVInit`    | Initialize a new uv project                        |
 
 Requires `uv` installed on the system. For IPython support, add it to
 your project: `uv add ipython`.

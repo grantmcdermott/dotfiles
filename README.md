@@ -93,19 +93,21 @@ A few design principles run across the configs:
 ### Mnemonic leader keys (Neovim)
 
 Leader is `Space`. Most Neovim bindings follow a `<Space><noun><verb>` pattern
-where the first letter identifies the domain:
+where the first (noun) letter identifies the domain:
 
-| Prefix | Domain | Examples |
-|--------|--------|----------|
-| `f` | **f**ind (Telescope) | `ff` files, `fs` string, `fr` recent, `fc` cursor word, `ft` todos |
-| `e` | **e**xplorer (nvim-tree) | `ee` toggle, `ef` find file, `ec` collapse, `er` refresh |
-| `s` | **s**plits / windows | `sv` vertical, `sh` horizontal, `se` equalise, `sx` close, `sm` maximise |
-| `t` | **t**abs / **t**erminal | `to` new tab, `tx` close, `tn`/`tp` next/prev; `tt`/`th`/`tv` terminal float/horiz/vert |
-| `x` | diagnostics (Trouble) | `xw` workspace, `xd` document, `xq` quickfix, `xl` loclist, `xt` todos |
-| `w` | **w**orkspace (sessions) | `wr` restore, `ws` save |
-| `l` | **l**azy / la**z**ygit | `lg` lazygit, `lz` Lazy plugin manager |
-| `r` | **R** (R filetypes only) | `rr` start R |
-| `,` | localleader (R.nvim) | `,a` all, `,c` chunks, `,k` knit, `,v` view, etc. |
+| Prefix | Domain                    | Examples                                                                                |
+| ------ | ------------------------- | --------------------------------------------------------------------------------------- |
+| `f`    | **f**ind (Telescope)      | `ff` files, `fs` string, `fr` recent, `fc` cursor word, `ft` todos                      |
+| `e`    | **e**xplorer (nvim-tree)  | `ee` toggle, `ef` find file, `ec` collapse, `er` refresh                                |
+| `s`    | **s**plits / windows      | `sv` vertical, `sh` horizontal, `se` equalise, `sx` close, `sm` maximise                |
+| `t`    | **t**abs / **t**erminal   | `to` new tab, `tx` close, `tn`/`tp` next/prev; `tt`/`th`/`tv` terminal float/horiz/vert |
+| `x`    | diagnostics (Trouble)     | `xw` workspace, `xd` document, `xq` quickfix, `xl` loclist, `xt` todos                  |
+| `w`    | **w**orkspace (sessions)  | `wr` restore, `ws` save                                                                 |
+| `g`    | **g**it                   | `gg` lazygit                                                                            |
+| `l`    | **l**azy                  | `ll` Lazy plugin manager                                                                |
+| `r`    | **R** (R filetypes only)  | `rr` start R                                                                            |
+| `u`    | **u**v (Python filetypes) | `ui` init, `ua` add, `ur` run, `uc` sync                                                |
+| `,`    | localleader (R.nvim)      | `,a` all, `,c` chunks, `,k` knit, `,v` view, etc.                                       |
 
 ### IDE-familiar shortcuts
 
