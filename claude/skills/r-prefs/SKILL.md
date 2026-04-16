@@ -264,6 +264,198 @@ model = feols(y ~ x, data = dat)
 3. **Visualization**: tinyplot (+ ggplot2 if needed)
 4. **Output**: tinytable for tables, here() for file paths
 
+## Tips & Idioms
+
+### Use temp variables inside data.table aggregations
+
+When computing related summary statistics, use a function with local
+variables to avoid recalculating the same expression multiple times.
+
+```r
+# Good — compute once, reuse
+dat[
+  ,
+  unlist(lapply(.SD, \(x) {
+    m = mean(x, na.rm = TRUE)
+    se = sd(x, na.rm = TRUE) / sqrt(.N)
+    list(mean = m, lwr = m - 1.96 * se, upr = m + 1.96 * se)
+  }), recursive = FALSE),
+  by = .(treat, post),
+  .SDcols = outcomes
+]
+
+# Avoid — redundant calls to mean() and sd()
+dat[
+  ,
+  .(
+    mean = mean(x, na.rm = TRUE),
+    lwr = mean(x, na.rm = TRUE) - 1.96 * (sd(x, na.rm = TRUE) / sqrt(.N)),
+    upr = mean(x, na.rm = TRUE) + 1.96 * (sd(x, na.rm = TRUE) / sqrt(.N))
+  ),
+  by = .(treat, post)
+]
+```
+
+### Aggregate and reshape in one step with `dcast`
+
+`dcast` accepts multiple aggregation functions and multiple value columns
+simultaneously, avoiding a separate collapse-then-reshape workflow.
+
+```r
+# One-step: multiple stats × multiple variables, reshaped wide
+dcast(
+  dat, origin ~ .,
+  fun = list(min, mean, max),
+  value.var = c("dep_delay", "arr_delay")
+)
+
+# Avoid: aggregate first, then reshape manually
+tmp = dat[, .(
+  min_dep = min(dep_delay), mean_dep = mean(dep_delay), max_dep = max(dep_delay),
+  min_arr = min(arr_delay), mean_arr = mean(arr_delay), max_arr = max(arr_delay)
+), by = origin]
+```
+
+### Non-equi joins for range-based matching
+
+Use `on = .(key, val >= start, val <= end)` to merge over intervals
+(e.g. date ranges) instead of a cross join + filter.
+
+```r
+# Define carrier-specific date windows
+windows = data.table(
+  carrier     = c("AA", "UA"),
+  start_month = c(1, 4),
+  end_month   = c(3, 6)
+)
+
+# Single-step range join
+dat[windows, on = .(carrier, month >= start_month, month <= end_month)]
+
+# Avoid: merge on carrier alone, then filter
+merge(dat, windows, by = "carrier")[month >= start_month & month <= end_month]
+```
+
+### Melt into multiple value columns with `measure(value.name, ...)`
+
+When column names encode both a variable and a grouping (e.g.
+`votes_Rep`, `ev_Rep`, `votes_Dem`, `ev_Dem`), use the special
+`value.name` keyword inside `measure()` to produce one value column
+per variable. This is easy to overlook because `value.name` looks like
+the regular `melt(..., value.name = <string>)` argument, but inside
+`measure()` it acts as a special symbol.
+
+```r
+# Columns: state, votes_Rep, ev_Rep, votes_Dem, ev_Dem
+# Goal: long by party, with separate votes and ev columns
+
+# Good — value.name produces multiple value columns
+melt(dat, measure.vars = measure(value.name, party, sep = "_"))
+#>      state party  votes ev
+#> 1: Oklahoma   Rep 1036213  7
+#> 2:   Oregon   Rep  919480  0
+#> 3: Oklahoma   Dem  499599  0
+#> 4:   Oregon   Dem 1240600  8
+
+# Without value.name, you'd need two separate melts + merge
+```
+
+### fixest: Multi-model estimation in a single call
+
+fixest can estimate many specifications at once, sharing fixed-effect
+computation across models. This avoids loops and is much faster.
+
+```r
+# Multiple dependent variables
+feols(c(wage, educ) ~ age + marr | countyfips + year, dat)
+
+# Cumulative stepwise: progressively adds controls
+feols(wage ~ educ + csw0(age, marr, hisp) | countyfips, dat)
+# Produces 4 models: no controls, +age, +age+marr, +age+marr+hisp
+
+# Split sample estimation
+feols(wage ~ educ | countyfips, dat, fsplit = ~hisp)
+# Produces 3 models: full sample, hisp==0, hisp==1
+
+# All of the above can be combined
+feols(c(wage, educ) ~ csw0(age, marr) | countyfips, dat, fsplit = ~hisp)
+```
+
+### fixest: Formula macros with `.[vector]`
+
+Use `.[ctrls]` to inject a character vector of variable names into a
+fixest formula. Avoids `paste()`/`reformulate()` gymnastics.
+
+```r
+ctrls = c("age", "black", "hisp", "marr")
+feols(wage ~ educ + .[ctrls] | countyfips, dat)
+
+# Regex column selection with ..()
+feols(wage ~ educ + ..("^race"), dat)
+```
+
+### fixest: Varying slopes in fixed effects
+
+Use bracket notation `fe[continuous]` for group-specific slopes (e.g.
+state-specific time trends). Distinct from `fe^var` which creates
+interaction FEs.
+
+```r
+# State-specific linear time trends
+feols(wage ~ educ | statefips[year], dat)
+
+# Compare: interaction FE (a separate FE for each state×year)
+feols(wage ~ educ | statefips^year, dat)
+```
+
+### fixest: Report multiple SEs for the same model
+
+`etable()` can display the same model under different variance
+estimators side by side, without re-estimating.
+
+```r
+est = feols(wage ~ educ | countyfips + year, dat)
+etable(est, vcov = list("iid", "hc1", ~countyfips, ~countyfips + year))
+```
+
+### fixest: Preview formula expansion with `xpd()`
+
+Use `xpd()` to debug complex formulas with interpolation, stepwise,
+or regex before running the estimation.
+
+```r
+ctrls = c("age", "black", "hisp")
+xpd(wage ~ educ + .[ctrls] | csw0(statefips, year))
+#> wage ~ educ + age + black + hisp | csw0(statefips, year)
+```
+
+### fixest: `only.coef` for fast simulation loops
+
+When running bootstrap or Monte Carlo simulations, `only.coef = TRUE`
+skips building the full fixest object and returns just the coefficient
+vector — much faster in tight loops.
+
+```r
+boot_coefs = lapply(1:999, \(i) {
+  idx = sample(nrow(dat), replace = TRUE)
+  feols(wage ~ educ | countyfips, dat[idx], only.coef = TRUE)
+})
+boot_vcov = var(do.call(rbind, boot_coefs))
+```
+
+### fixest: Bin and rebase factor levels in-formula with `i()`
+
+Use `i(var, ref, bin)` to change the reference level or merge factor
+levels directly in the formula, without recoding the variable.
+
+```r
+# Change reference to period 5
+feols(y ~ i(period, ref = 5) | id, dat)
+
+# Bin periods 1-3 into a single "pre" category
+feols(y ~ i(period, bin = list(pre = 1:3)) | id, dat)
+```
+
 ## S3 Data I/O Examples
 
 ### Reading from S3
