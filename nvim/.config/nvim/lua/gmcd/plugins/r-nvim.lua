@@ -12,7 +12,7 @@ return {
 		auto_start = "on startup",
 		R_args = { "--quiet", "--no-save" },
 		rconsole_width = 0,
-		rconsole_height = 15,
+		rconsole_height = 20,
 		hook = {
 			on_filetype = function()
 				-- This function will be called at the FileType event
