@@ -11,6 +11,8 @@ return {
 		-- Create a table with the options to be passed to setup()
 		auto_start = "on startup",
 		R_args = { "--quiet", "--no-save" },
+		rconsole_width = 0,
+		rconsole_height = 15,
 		hook = {
 			on_filetype = function()
 				-- This function will be called at the FileType event

@@ -21,7 +21,7 @@ return {
 				repl_definition = {
 					python = repl,
 				},
-				repl_open_cmd = "vertical botright 80 split",
+				repl_open_cmd = "botright split",
 			},
 		})
 	end,
