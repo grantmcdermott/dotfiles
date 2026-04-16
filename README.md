@@ -100,7 +100,7 @@ where the first (noun) letter identifies the domain:
 | `f`    | **f**ind (Telescope)      | `ff` files, `fs` string, `fr` recent, `fc` cursor word, `ft` todos                      |
 | `e`    | **e**xplorer (nvim-tree)  | `ee` toggle, `ef` find file, `ec` collapse, `er` refresh                                |
 | `s`    | **s**plits / windows      | `sv` vertical, `sh` horizontal, `se` equalise, `sx` close, `sm` maximise                |
-| `t`    | **t**abs / **t**erminal   | `to` new tab, `tx` close, `tn`/`tp` next/prev; `tt`/`th`/`tv` terminal float/horiz/vert |
+| `t`    | **t**erminal / **t**abs   | `tt`/`th`/`tv` terminal float/horiz/vert; `to` new tab, `tx` close, `tn`/`tp` next/prev |
 | `x`    | diagnostics (Trouble)     | `xw` workspace, `xd` document, `xq` quickfix, `xl` loclist, `xt` todos                  |
 | `w`    | **w**orkspace (sessions)  | `wr` restore, `ws` save                                                                 |
 | `g`    | **g**it                   | `gg` lazygit                                                                            |
