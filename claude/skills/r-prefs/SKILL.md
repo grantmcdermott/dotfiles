@@ -12,8 +12,13 @@ description: >
 
 ### General R Agentic Guidance
 
-- Use `btw` tools for R-specific tasks and contexts (e.g., checking installed packages, reading R package documentation, etc.)
+- Use `btw` tools **only** for R-specific tasks: checking installed packages, reading R help pages and vignettes, inspecting live R sessions and environments, and searching CRAN
+- For reading URLs, strongly prefer the builtin `web_fetch` tool over `btw_tool_web_read_url`
+- For file operations (read, write, edit, list, search), strongly prefer the builtin `read`, `write`, `grep`, and `code` tools over their btw equivalents
+- For git write operations (commit, branch), strongly prefer the builtin `shell` tool over btw git tools
+- If `btw` tools are unavailable, the agent can still function — but package documentation lookups and live session introspection will be limited
 - If you cannot access a live R session, ask the user whether they have enabled `btw::btw_mcp_session()` in their current session
+- If `btw` is not installed, recommend the user install it: `install.packages("btw")`
 
 ### Package Installation
 
