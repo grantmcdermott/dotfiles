@@ -1,18 +1,19 @@
-# Credentials and app state
-.credentials.json
-mcp.json
+# Ignore everything by default — only allowlisted files are tracked
+*
 
-# Runtime state
-history.jsonl
-mcp-needs-auth-cache.json
-sessions/
-projects/
+# This file
+!.gitignore
 
-# Caches & transient artifacts
-plugins/
-cache/
-file-history/
-paste-cache/
-session-env/
-shell-snapshots/
-backups/
+# Docs
+!CLAUDE.md
+!README.md
+
+# Config
+!settings.json
+!mcp-servers.json
+
+# Agents and skills
+!agents/
+!agents/**
+!skills/
+!skills/**
