@@ -26,5 +26,14 @@
       "mcp__r-btw__btw_tool_ide_read_current_editor"
     ]
   },
-  "effortLevel": "high"
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": ["Working"]
+  },
+  "effortLevel": "high",
+  "voiceEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  }
 }
