@@ -13,9 +13,9 @@ description: >
 ### General R Agentic Guidance
 
 - Use `btw` tools **only** for R-specific tasks: checking installed packages, reading R help pages and vignettes, inspecting live R sessions and environments, and searching CRAN
-- For reading URLs, strongly prefer the builtin `web_fetch` tool over `btw_tool_web_read_url`
-- For file operations (read, write, edit, list, search), strongly prefer the builtin `read`, `write`, `grep`, and `code` tools over their btw equivalents
-- For git write operations (commit, branch), strongly prefer the builtin `shell` tool over btw git tools
+- For reading URLs, prefer the host's builtin web-fetch tool over `btw_tool_web_read_url`
+- For file operations (read, write, edit, list, search), prefer the host's builtin file tools over their btw equivalents
+- For git write operations (commit, branch), prefer the host's builtin shell over btw git tools
 - If `btw` tools are unavailable, the agent can still function — but package documentation lookups and live session introspection will be limited
 - If you cannot access a live R session, ask the user whether they have enabled `btw::btw_mcp_session()` in their current session
 - If `btw` is not installed, recommend the user install it: `install.packages("btw")`
@@ -107,7 +107,10 @@ description: >
 - **here** - Path management (used in every project)
   - Ensures reproducible relative paths
   - Call `here::here()` for all file operations
-- **rv** - Snapshot reproducible R environments
+- **[rv](https://a2-ai.github.io/rv-docs/)** - Declarative, reproducible R project package manager
+  - Rust-based CLI tool (not a CRAN package) — the R equivalent of `uv` for Python
+  - Available in the RISE-R image
+  - Alternative to `renv`; resolves full dependency tree ahead of time for faster, more reliable reproducibility
 
 ## Coding Conventions
 
@@ -310,7 +313,7 @@ simultaneously, avoiding a separate collapse-then-reshape workflow.
 # One-step: multiple stats × multiple variables, reshaped wide
 dcast(
   dat, origin ~ .,
-  fun = list(min, mean, max),
+  fun.aggregate = list(min, mean, max),
   value.var = c("dep_delay", "arr_delay")
 )
 
@@ -513,9 +516,9 @@ con = dbConnect(duckdb())
 dbExecute(con, paste0("
   INSTALL httpfs; LOAD httpfs;
   SET s3_region='us-east-1';
-  SET s3_access_key_id='", creds$Credentials$AccessKeyId, "';
-  SET s3_secret_access_key='", creds$Credentials$SecretAccessKey, "';
-  SET s3_session_token='", creds$Credentials$SessionToken, "';
+  SET s3_access_key_id='", creds[["Credentials"]][["AccessKeyId"]], "';
+  SET s3_secret_access_key='", creds[["Credentials"]][["SecretAccessKey"]], "';
+  SET s3_session_token='", creds[["Credentials"]][["SessionToken"]], "';
 "))
 
 # Query S3 data directly
