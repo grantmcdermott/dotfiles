@@ -27,19 +27,19 @@ open). Plugins are auto-installed on first launch.
 
 ### Core workflow
 
-| Plugin                                                             | Description                                                                             |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------------------- |
-| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) | Fuzzy finder — search files, text, LSP symbols                                          |
-| [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)        | File explorer sidebar                                                                   |
-| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)      | Persistent floating terminal                                                            |
-| [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)           | LazyGit TUI inside nvim                                                                 |
-| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)        | Git gutter signs, hunk staging, inline blame                                            |
-| [trouble.nvim](https://github.com/folke/trouble.nvim)              | Diagnostics and TODO list panel                                                         |
-| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | AI agent integration via ACP (Kiro, Claude Code)                                     |
-| [R.nvim](https://github.com/R-nvim/R.nvim)                         | R console, help, object browser                                                         |
-| [iron.nvim](https://github.com/Vigemus/iron.nvim)                  | Interactive Python REPL (emulates R.nvim ergonomics)                                    |
-| [uv.nvim](https://github.com/benomahony/uv.nvim)                   | Python package management via [uv](https://github.com/astral-sh/uv)                     |
-| [neotest](https://github.com/nvim-neotest/neotest)                 | Test runner (with [testthat](https://github.com/shunsambongi/neotest-testthat) adapter) |
+| Plugin                                                                | Description                                                                             |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)    | Fuzzy finder — search files, text, LSP symbols                                          |
+| [nvim-tree.lua](https://github.com/nvim-tree/nvim-tree.lua)           | File explorer sidebar                                                                   |
+| [toggleterm.nvim](https://github.com/akinsho/toggleterm.nvim)         | Persistent floating terminal                                                            |
+| [lazygit.nvim](https://github.com/kdheepak/lazygit.nvim)              | LazyGit TUI inside nvim                                                                 |
+| [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)           | Git gutter signs, hunk staging, inline blame                                            |
+| [trouble.nvim](https://github.com/folke/trouble.nvim)                 | Diagnostics and TODO list panel                                                         |
+| [codecompanion.nvim](https://github.com/olimorris/codecompanion.nvim) | AI agent integration via ACP (Kiro, Claude Code)                                        |
+| [R.nvim](https://github.com/R-nvim/R.nvim)                            | R console, help, object browser                                                         |
+| [iron.nvim](https://github.com/Vigemus/iron.nvim)                     | Interactive Python REPL (emulates R.nvim ergonomics)                                    |
+| [uv.nvim](https://github.com/benomahony/uv.nvim)                      | Python package management via [uv](https://github.com/astral-sh/uv)                     |
+| [neotest](https://github.com/nvim-neotest/neotest)                    | Test runner (with [testthat](https://github.com/shunsambongi/neotest-testthat) adapter) |
 
 ### Editing
 
@@ -54,15 +54,15 @@ open). Plugins are auto-installed on first launch.
 
 ### UI
 
-| Plugin                                                                          | Description                                       |
-| ------------------------------------------------------------------------------- | ------------------------------------------------- |
-| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                     | Colorscheme                                       |
-| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                    | Status line                                       |
-| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)                   | Tab-style buffer bar                              |
-| [alpha-nvim](https://github.com/goolord/alpha-nvim)                             | Dashboard start screen                            |
-| [which-key.nvim](https://github.com/folke/which-key.nvim)                       | Shows available keybindings after pressing leader |
-| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim) | Indentation guides                                |
-| [dressing.nvim](https://github.com/stevearc/dressing.nvim)                      | Improved input/select UI                          |
+| Plugin                                                                               | Description                                              |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------- |
+| [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                          | Colorscheme                                              |
+| [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                         | Status line                                              |
+| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)                        | Tab-style buffer bar                                     |
+| [alpha-nvim](https://github.com/goolord/alpha-nvim)                                  | Dashboard start screen                                   |
+| [which-key.nvim](https://github.com/folke/which-key.nvim)                            | Shows available keybindings after pressing leader        |
+| [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)      | Indentation guides                                       |
+| [dressing.nvim](https://github.com/stevearc/dressing.nvim)                           | Improved input/select UI                                 |
 | [render-markdown.nvim](https://github.com/MeanderingProgrammer/render-markdown.nvim) | Renders markdown in-buffer (headings, code blocks, etc.) |
 
 ### Language support (mostly automatic)
@@ -76,16 +76,6 @@ open). Plugins are auto-installed on first launch.
 | [conform.nvim](https://github.com/stevearc/conform.nvim)              | Code formatting                                |
 | [nvim-lint](https://github.com/mfussenegger/nvim-lint)                | Linting                                        |
 | [auto-session](https://github.com/rmagatti/auto-session)              | Saves/restores sessions per project            |
-
-### R tooling stack
-
-Three LSP-level tools cooperate for R files:
-
-- **[Air](https://posit-dev.github.io/air/)** — formatting (format-on-save via LSP)
-- **[Jarl](https://jarl.etiennebacher.com/)** — linting
-- **r\_language\_server** — completions and hover (formatting disabled so Air owns it)
-
-The split is toggled in `core/init.lua` with a single require swap.
 
 ## Leader Keys
 
@@ -220,13 +210,13 @@ on Linux.
 Requires `CODECOMPANION_AGENT` set in `~/.zshrc.local` (e.g., `"kiro"` or
 `"claude_code"`). Without it, `<space>aa` shows a setup prompt.
 
-| Key         | Action                        |
-| ----------- | ----------------------------- |
-| `<space>aa` | Action palette                |
-| `<space>ac` | Toggle chat buffer            |
-| `<space>ai` | New chat                      |
-| `<space>al` | Open CLI agent                |
-| `ga`        | Add selection to chat (visual)|
+| Key         | Action                         |
+| ----------- | ------------------------------ |
+| `<space>aa` | Action palette                 |
+| `<space>ac` | Toggle chat buffer             |
+| `<space>ai` | New chat                       |
+| `<space>al` | Open CLI agent                 |
+| `ga`        | Add selection to chat (visual) |
 
 ### R.nvim (local leader: `,`)
 
@@ -262,6 +252,16 @@ Also note the general (IDE-flavoured) keymappings described above:
 | `Cmd+Enter` | Send line/selection to REPL (R or Python) |
 | `<space>rr` | Start R (R filetypes only)                |
 
+### R tooling stack
+
+Three LSP-level tools cooperate for R files:
+
+- **[Air](https://posit-dev.github.io/air/)** — formatting (format-on-save via LSP)
+- **[Jarl](https://jarl.etiennebacher.com/)** — linting
+- **r_language_server** — completions and hover (formatting disabled so Air owns it)
+
+The split is toggled in `core/init.lua` with a single require swap.
+
 ### Python (iron.nvim + uv.nvim)
 
 Python REPL support is designed to emulate the R.nvim ergonomics.
@@ -273,19 +273,19 @@ is used automatically.
 The uv.nvim default keymap prefix is changed from `<leader>x` to `<leader>u`
 to avoid conflicting with trouble.nvim diagnostics.
 
-| Key          | Action                                             |
-| ------------ | -------------------------------------------------- |
-| `<space>u`   | Show uv commands menu                              |
-| `<space>ua`  | Add a package                                      |
-| `<space>ud`  | Remove a package                                   |
-| `<space>ur`  | Run current file                                   |
-| `<space>us`  | Run selected code (visual mode)                    |
-| `<space>uf`  | Run a specific function                            |
-| `<space>uc`  | Sync packages                                      |
-| `<space>uC`  | Sync all (extras + groups)                         |
-| `<space>ue`  | Environment management                             |
-| `<space>ui`  | Initialize a new uv project                        |
-| `Cmd+Enter`  | Send line (normal) / selection (visual) to IPython |
+| Key         | Action                                             |
+| ----------- | -------------------------------------------------- |
+| `<space>u`  | Show uv commands menu                              |
+| `<space>ua` | Add a package                                      |
+| `<space>ud` | Remove a package                                   |
+| `<space>ur` | Run current file                                   |
+| `<space>us` | Run selected code (visual mode)                    |
+| `<space>uf` | Run a specific function                            |
+| `<space>uc` | Sync packages                                      |
+| `<space>uC` | Sync all (extras + groups)                         |
+| `<space>ue` | Environment management                             |
+| `<space>ui` | Initialize a new uv project                        |
+| `Cmd+Enter` | Send line (normal) / selection (visual) to IPython |
 
 Requires `uv` installed on the system. For IPython support, add it to
 your project: `uv add ipython`.
