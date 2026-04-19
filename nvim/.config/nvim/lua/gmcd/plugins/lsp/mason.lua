@@ -38,6 +38,10 @@ return {
 				-- "prismals",
 				"pyright",
 			},
+			-- stylua is a formatter, not an LSP; prevent auto-enable attempts
+			automatic_enable = {
+				exclude = { "stylua" },
+			},
 		})
 
 		mason_tool_installer.setup({
