@@ -28,6 +28,11 @@ return {
 		{ "ga", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add selection to chat" },
 	},
 	opts = {
+		display = {
+			chat = {
+				auto_scroll = true,
+			},
+		},
 		interactions = {
 			chat = {
 				adapter = agent,
