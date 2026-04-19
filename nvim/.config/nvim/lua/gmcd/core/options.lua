@@ -40,5 +40,12 @@ opt.clipboard:append("unnamedplus") -- use system clipboard as default register
 opt.splitright = true -- split vertical window to the right
 opt.splitbelow = true -- split horizontal window to the bottom
 
+-- thicker split borders (heavy box-drawing characters)
+opt.fillchars:append({
+  vert = "┃",
+  horiz = "━",
+})
+opt.laststatus = 3 -- global statusline; required for horiz/vert* fillchars to render
+
 -- turn off swapfile
 opt.swapfile = false

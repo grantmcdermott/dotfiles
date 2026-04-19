@@ -15,6 +15,11 @@ return {
 
       require("tokyonight").setup({
         style = "night",
+        on_highlights = function(hl, colors)
+          -- sharper split boundaries with soft light-blue accent
+          hl.WinSeparator = { fg = "#89B4D9", bold = true }
+          hl.VertSplit = { fg = "#89B4D9", bold = true }
+        end,
         on_colors = function(colors)
           colors.bg = bg
           colors.bg_dark = bg_dark
