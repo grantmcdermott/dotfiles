@@ -16,6 +16,14 @@ keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
 
+-- swap q and Q: use Q to record macros, disable default Ex mode on Q
+keymap.set("n", "Q", "q", { desc = "Record macro" })
+keymap.set("n", "q", "<Nop>", { desc = "Disable default macro recording" })
+
+-- disable Ex mode and macro recording (prevent accidental Q/q)
+keymap.set("n", "Q", "<Nop>", { desc = "Disable Ex mode" })
+keymap.set("n", "q", "<Nop>", { desc = "Disable macro recording" })
+
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement

@@ -106,6 +106,17 @@ on Linux.
 | `<space>+`  | Increment number        |
 | `<space>-`  | Decrement number        |
 
+### Macros
+
+`q` and `Q` are swapped from their Vim defaults: `Q` records a macro,
+`q` is disabled. This prevents accidentally starting macro recording
+when reaching for `:q`. Playback (`@<register>`) is unchanged.
+
+| Key           | Action                       |
+| ------------- | ---------------------------- |
+| `Q<register>` | Start/stop recording a macro |
+| `@<register>` | Play back a macro            |
+
 ### File Explorer (nvim-tree)
 
 | Key         | Action                        |
