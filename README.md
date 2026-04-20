@@ -62,6 +62,58 @@ mv ~/.config/nvim ~/.config/nvim.bak
 # etc.
 ```
 
+<details>
+<summary><b>Tip: Preserve your private shell settings in <code>~/.zshrc.local</code></b></summary>
+
+Stowing `shell` will replace your existing `~/.zshrc` with a symlink to my
+version here. While stow will force you to back up your existing config to
+`~/.zshrc.bak`, this still means that any settings in your old file won't
+be picked up. That includes sensitive or machine-specific things
+that shouldn't live in a public repo anyway (e.g. employer tooling,
+credentials, API keys, etc.)
+
+One solution is to manually copy over these old (machine-specific) settings
+to `~/.zshrc`. But a better solution, which we adopt here, is to create a
+companion **`~/.zshrc.local`** file. This file will be automatically
+sourced at the end of `.zshrc`, but is never tracked in git. Sourcing a local
+override file is a widely-used convention in the dotfiles community, and it
+cleanly separates what is shared (this repo) from what is private (your
+machine).
+
+**Important:** You must create `~/.zshrc.local` yourself. After stowing, rescue
+any machine-specific settings from your backup:
+
+```bash
+touch ~/.zshrc.local
+```
+
+Open `~/.zshrc.bak` and copy over anything specific to this machine rather
+than general shell setup. Look for:
+
+- Tool environment setups (e.g. `. "$HOME/.cargo/env"`, `. "$HOME/.local/bin/env"`)
+- Machine-specific `PATH` exports (e.g. Homebrew, system paths)
+- Employer-specific tooling and integrations
+- SSH key loading
+- Editor shell integrations (e.g. Kiro, VS Code)
+- Language-specific environment variables (e.g. `JAVA_HOME`, `GOPATH`)
+- `CODECOMPANION_AGENT`, e.g. set to `"kiro"` or `"claude_code"` to enable the
+
+For example:
+
+```bash
+# AI agent for CodeCompanion.nvim
+export CODECOMPANION_AGENT=claude_code
+```
+
+If your backup is long, an AI assistant can help. Try:
+
+> Here is my old `~/.zshrc.bak`. Extract only the machine-specific settings
+> that don't belong in a shared dotfiles repo — tool environments, PATH
+> additions, employer tooling, etc. Format them as a clean `~/.zshrc.local`
+> and skip anything already covered by a standard Oh My Zsh setup.
+
+</details>
+
 ### Prerequisites
 
 In order to clone my setup exactly, you need the following:
