@@ -1,0 +1,14 @@
+# arf console config — equivalent of .radian_profile
+# Docs: https://github.com/eitsupi/arf/blob/main/docs/configuration.md
+
+[editor]
+mode = "vi"                         # vi editing mode (was: radian.editing_mode)
+highlight_matching_bracket = false  # was: radian.highlight_matching_bracket
+
+[prompt.vi]
+# Blue [I]/[N] mode indicator — matches the old radian.vi_mode_prompt
+symbol = { insert = "[I] ", normal = "[N] " }
+
+[colors.prompt.vi]
+insert = "Blue"
+normal = "Blue"
