@@ -36,7 +36,7 @@ follow-up questions, for example:
 
 > How should I join two data.tables on multiple keys?
 > Now add a rolling mean by group...
-> Describe the `dat` data frame in my current R session  # first run btw::btw_mcp_session() in R
+> Run `str(dat)` and describe the structure
 
 **Agents** are subprocesses with their own model, tools, and MCP access. Claude
 auto-delegates based on task description, or you can invoke them explicitly:
@@ -54,13 +54,20 @@ For a full list of available agents and skills, see the `agents/` and `skills/` 
 ## MCP Servers
 
 Server definitions are in `mcp-servers.json` for reference. Add them via the
-`/mcp` command in Claude Code. Read-only r-btw tools are auto-allowed in
+`/mcp` command in Claude Code. Read-only corteza tools are auto-allowed in
 `settings.json`; write/exec tools prompt for approval.
 
-The R workflow assumes the [`btw`](https://github.com/posit-dev/btw) package is
-installed. To automatically give Claude access to your R session, add this to your
-`.Rprofile`:
+The R workflow requires the [`corteza`](https://github.com/cornball-ai/corteza)
+package. Install from the local fork (which fixes a stdin bug for Claude Code
+compatibility):
 
 ```r
-btw::btw_mcp_session()
+# From local fork (recommended until upstream merges PR #62)
+devtools::install("~/Documents/Projects/corteza")
+
+# Or from GitHub once PR is merged
+remotes::install_github("cornball-ai/corteza")
 ```
+
+Corteza runs its own R session via stdio — no manual setup needed. It starts
+automatically when Claude Code connects to the MCP server.

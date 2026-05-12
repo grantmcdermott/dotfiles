@@ -1,15 +1,8 @@
 {
   "mcpServers": {
-    "r-btw": {
+    "corteza": {
       "command": "Rscript",
-      "args": [
-        "-e",
-        "btw::btw_mcp_server()"
-      ]
-    },
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/"
+      "args": ["-e", "corteza::serve()"]
     }
   }
 }

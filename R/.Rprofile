@@ -1,11 +1,20 @@
 # Platform-specific settings
 if (Sys.info()[["sysname"]] == "Linux") {
-  options(HTTPUserAgent = sprintf(
-    "R/%s R (%s)",
-    getRversion(),
-    paste(getRversion(), R.version["platform"], R.version["arch"], R.version["os"])
-  ))
-  options(repos = c(CRAN = "https://p3m.dev/cran/__linux__/manylinux_2_28/latest"))
+  options(
+    HTTPUserAgent = sprintf(
+      "R/%s R (%s)",
+      getRversion(),
+      paste(
+        getRversion(),
+        R.version["platform"],
+        R.version["arch"],
+        R.version["os"]
+      )
+    )
+  )
+  options(
+    repos = c(CRAN = "https://p3m.dev/cran/__linux__/manylinux_2_28/latest")
+  )
 } else {
   options(repos = c(CRAN = "https://cloud.r-project.org"))
 }
@@ -30,9 +39,15 @@ print.data.frame = function(x, ..., topn = 5, nrows = 20) {
   }
 
   type_map = c(
-    numeric = "<num>", integer = "<int>", character = "<chr>",
-    factor = "<fct>", logical = "<lgl>", Date = "<Date>",
-    POSIXct = "<dttm>", complex = "<cpl>", ordered = "<ord>"
+    numeric = "<num>",
+    integer = "<int>",
+    character = "<chr>",
+    factor = "<fct>",
+    logical = "<lgl>",
+    Date = "<Date>",
+    POSIXct = "<dttm>",
+    complex = "<cpl>",
+    ordered = "<ord>"
   )
   classes = sapply(x, \(col) class(col)[1])
   abbs = unname(type_map[classes])
@@ -70,5 +85,18 @@ print.data.frame = function(x, ..., topn = 5, nrows = 20) {
   invisible(x)
 }
 
-# btw MCP session (if available)
-if (requireNamespace("btw", quietly = TRUE)) btw::btw_mcp_session()
+# use jgd for plotting in VS Code
+#if (
+#  interactive() &&
+#    Sys.getenv("TERM_PROGRAM") == "vscode" &&
+#    Sys.getenv("POSITRON") != "1"
+#) {
+  #library(jgd)
+  #jgd()
+#}
+
+# btw MCP session (disabled — replaced by corteza)
+# if (requireNamespace("btw", quietly = TRUE)) {
+#   btw::btw_mcp_session()
+# }
+
