@@ -6,7 +6,7 @@ model: opus
 skills:
   - r-prefs
 mcpServers:
-  - r-btw
+  - corteza
 ---
 
 You are an expert R programmer specializing in large-scale data analysis and econometrics.

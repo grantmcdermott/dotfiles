@@ -12,13 +12,13 @@ description: >
 
 ### General R Agentic Guidance
 
-- Use `btw` tools **only** for R-specific tasks: checking installed packages, reading R help pages and vignettes, inspecting live R sessions and environments, and searching CRAN
-- For reading URLs, prefer the host's builtin web-fetch tool over `btw_tool_web_read_url`
-- For file operations (read, write, edit, list, search), prefer the host's builtin file tools over their btw equivalents
-- For git write operations (commit, branch), prefer the host's builtin shell over btw git tools
-- If `btw` tools are unavailable, the agent can still function — but package documentation lookups and live session introspection will be limited
-- If you cannot access a live R session, ask the user whether they have enabled `btw::btw_mcp_session()` in their current session
-- If `btw` is not installed, recommend the user install it: `install.packages("btw")`
+- Use corteza MCP tools for R tasks: `r_help` for documentation, `run_r` for code execution, `installed_packages` for package checks
+- For reading URLs, prefer the host's builtin web-fetch tool over corteza's `fetch_url`
+- For file operations (read, write, edit, list, search), prefer the host's builtin file tools over corteza equivalents
+- For git write operations (commit, branch), prefer the host's builtin shell over corteza git tools
+- If the corteza package and tools are unavailable:
+  - Check if the `corteza` R package is installed - if not, offer to install on behalf of the user: `Rscript -e "install.packages('corteza')"`
+  - Note that the agent can still function regardless — use Bash with Rscript as a fallback
 
 ### Package Installation
 
@@ -35,7 +35,7 @@ description: >
 
 ### Code suggestions
 
-- When suggesting or inserting code, you should check whether the necessary packages to run the code are available on the user's system (using `btw` tools)
+- When suggesting or inserting code, you should check whether the necessary packages to run the code are available on the user's system (using corteza's `installed_packages` tool)
 
 ## Code Style & Philosophy
 
@@ -469,6 +469,7 @@ feols(y ~ i(period, bin = list(pre = 1:3)) | id, dat)
 ### Reading from S3
 
 #### Single files with arrow
+
 ```r
 library(arrow)
 
@@ -484,6 +485,7 @@ dat = read_parquet("s3://your-bucket-name/path/to/file.parquet")
 ```
 
 #### Datasets (partitioned files)
+
 ```r
 library(arrow)
 library(dplyr)
@@ -500,6 +502,7 @@ result = ds |>
 ```
 
 #### DuckDB integration for larger queries
+
 ```r
 library(duckdb)
 library(paws)
@@ -531,6 +534,7 @@ result = dbGetQuery(con, "
 ### Writing to S3
 
 #### Single files
+
 ```r
 # Write parquet file
 write_parquet(dat, "s3://your-bucket/output.parquet")
@@ -541,16 +545,18 @@ write_parquet(dat, bucket$path("output.parquet"))
 ```
 
 #### Partitioned datasets
+
 ```r
 # Write partitioned dataset
 write_dataset(
-  dat, 
+  dat,
   "s3://your-bucket/partitioned-output/",
   partitioning = c("year", "month")
 )
 ```
 
 ### Large datasets workflow
+
 For datasets >2GB, download locally first:
 
 ```bash
@@ -559,6 +565,7 @@ aws s3 cp s3://source-bucket/large-dataset/ data/large-dataset --recursive
 ```
 
 Then process locally with DuckDB:
+
 ```r
 library(arrow)
 library(duckdb)

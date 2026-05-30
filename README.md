@@ -208,8 +208,8 @@ components on your machine:
   terminal or VS Code, install [arf](https://github.com/eitsupi/arf) — the
   `R/.config/arf/` config here enables vi mode and matches the old radian
   setup. The `.Rprofile` also auto-starts a
-  [btw](https://posit-dev.github.io/btw/) MCP session if the package is
-  installed (optional, for AI tooling).
+  [corteza](https://github.com/cornball-ai/corteza) MCP session if the
+  package is installed (optional, for AI tooling).
 - **Python** — requires [uv](https://github.com/astral-sh/uv) on `PATH` for
   `uv.nvim` and the iron.nvim Python REPL. Install with
   `curl -LsSf https://astral.sh/uv/install.sh | sh`.
