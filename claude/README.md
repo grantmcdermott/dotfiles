@@ -58,15 +58,11 @@ Server definitions are in `mcp-servers.json` for reference. Add them via the
 `settings.json`; write/exec tools prompt for approval.
 
 The R workflow requires the [`corteza`](https://github.com/cornball-ai/corteza)
-package. Install from the local fork (which fixes a stdin bug for Claude Code
-compatibility):
+(>=0.6.0) package.
 
 ```r
-# From local fork (recommended until upstream merges PR #62)
-devtools::install("~/Documents/Projects/corteza")
-
-# Or from GitHub once PR is merged
-remotes::install_github("cornball-ai/corteza")
+# Install from CRAN
+install.packages("corteza")
 ```
 
 Corteza runs its own R session via stdio — no manual setup needed. It starts
