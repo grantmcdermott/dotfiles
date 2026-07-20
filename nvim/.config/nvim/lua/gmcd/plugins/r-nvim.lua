@@ -3,10 +3,10 @@ return {
 	lazy = false,
 	-- Don't load when Neovim is embedded in VS Code or Positron
 	cond = not vim.g.vscode,
-	-- R.nvim is still young and we may make some breaking changes from time
-	-- to time. For now we recommend pinning to the latest minor version
-	-- like so:
-	version = "~0.99.0",
+	-- Pin to the latest minor version for config stability; occasional
+	-- breaking changes still land between minors. Unpin and try latest
+	-- before reporting an issue upstream.
+	version = "~1.0.0",
 	opts = {
 		-- Create a table with the options to be passed to setup()
 		auto_start = "on startup",
