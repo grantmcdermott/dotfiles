@@ -18,16 +18,19 @@
       "mcp__corteza__query_subagent"
     ]
   },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "spinnerVerbs": {
     "mode": "replace",
-    "verbs": [
-      "Working"
-    ]
+    "verbs": ["Working"]
   },
   "effortLevel": "high",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "opus"
 }
