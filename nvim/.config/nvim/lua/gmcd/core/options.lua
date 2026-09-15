@@ -12,6 +12,25 @@ opt.shiftwidth = 2 -- 2 spaces for indent width
 opt.expandtab = true -- expand tab to spaces
 opt.autoindent = true -- copy indent from current line when starting new one
 
+-- python: one indent level inside an open paren (default is two), and return a
+-- lone closing paren to the statement's own indent. Suits parenthesised method
+-- chains, e.g. polars/pandas pipelines.
+vim.g.python_indent = {
+  open_paren = "shiftwidth()",
+  nested_paren = "shiftwidth()",
+  continue = "shiftwidth()",
+  closed_paren_align_last_line = false,
+}
+
+-- python convention (and black's output) is 4 spaces, not the global 2
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    vim.bo.tabstop = 4
+    vim.bo.shiftwidth = 4
+  end,
+})
+
 -- line wrapping
 opt.wrap = false -- disable line wrapping
 

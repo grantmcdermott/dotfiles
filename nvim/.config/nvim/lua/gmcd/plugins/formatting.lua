@@ -19,7 +19,8 @@ return {
         graphql = { "prettier" },
         liquid = { "prettier" },
         lua = { "stylua" },
-        python = { "isort", "black" },
+        -- ruff covers both import sorting (its isort rules) and formatting
+        python = { "ruff_organize_imports", "ruff_format" },
         r = { "air" },
         quarto = { "injected" },
         rmd = { "injected" },

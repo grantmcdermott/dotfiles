@@ -95,7 +95,7 @@ on Linux.
 | Key         | Action                                    |
 | ----------- | ----------------------------------------- |
 | `Cmd+/`     | Toggle comment (line or selection)        |
-| `Cmd+Enter` | Send line/selection to REPL (R or Python) |
+| `Cmd+Enter` | Send statement/selection to REPL (R or Python) |
 | `<space>rr` | Start R (R filetypes only)                |
 
 ### General
@@ -284,7 +284,7 @@ Also note the general (IDE-flavoured) keymappings described above:
 | Key         | Group                                     |
 | ----------- | ----------------------------------------- |
 | `Cmd+/`     | Toggle comment (line or selection)        |
-| `Cmd+Enter` | Send line/selection to REPL (R or Python) |
+| `Cmd+Enter` | Send statement/selection to REPL (R or Python) |
 | `<space>rr` | Start R (R filetypes only)                |
 
 ### R tooling stack
@@ -305,6 +305,11 @@ REPL (IPython if available, plain Python as fallback) running through
 [uv](https://github.com/astral-sh/uv), so the project's virtual environment
 is used automatically.
 
+`Cmd+Enter` sends the whole statement under the cursor, so a method chain
+spanning several lines goes as one unit with no visual selection needed.
+Treesitter locates the enclosing statement; inside a `def`/`for`/`if` body the
+individual statement is sent rather than the whole surrounding construct.
+
 The uv.nvim default keymap prefix is changed from `<leader>x` to `<leader>u`
 to avoid conflicting with trouble.nvim diagnostics.
 
@@ -320,7 +325,34 @@ to avoid conflicting with trouble.nvim diagnostics.
 | `<space>uC` | Sync all (extras + groups)                         |
 | `<space>ue` | Environment management                             |
 | `<space>ui` | Initialize a new uv project                        |
-| `Cmd+Enter` | Send line (normal) / selection (visual) to IPython |
+| `Cmd+Enter` | Send statement (normal) / selection (visual) to IPython |
 
 Requires `uv` installed on the system. For IPython support, add it to
 your project: `uv add ipython`.
+
+### Python tooling stack
+
+- **[ruff](https://docs.astral.sh/ruff/)** — formatting, import sorting, and linting
+- **pyright** — completions, hover, type checking
+
+ruff replaces an earlier isort + black + pylint trio, so one binary now covers
+all three roles. Two consequences worth knowing:
+
+- `ruff format` is black-compatible, meaning it reflows from the syntax tree
+  rather than honouring your line breaks. A short method chain is collapsed
+  onto one line; a long one keeps its vertical layout but glues the first call
+  to its subject (`dat.drop_nulls()`). Fence a block in `# fmt: off` /
+  `# fmt: on` when the layout matters.
+- ruff's default lint rules are narrow (pyflakes plus a few pycodestyle
+  errors), so expect far less noise than pylint gave. Widen them per project
+  in `pyproject.toml`:
+
+  ```toml
+  [tool.ruff.lint]
+  select = ["E", "F", "I", "UP", "B", "SIM"]
+  ```
+
+Python buffers use a 4-space indent, overriding the global 2 to match ruff's
+output. `g:python_indent` in `core/options.lua` gives a single indent level
+inside an open paren and returns a lone closing paren to the statement's own
+indent, which suits parenthesised polars/pandas chains.

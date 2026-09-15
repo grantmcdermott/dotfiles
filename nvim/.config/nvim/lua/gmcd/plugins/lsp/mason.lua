@@ -48,9 +48,7 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
-				"isort", -- python formatter
-				"black", -- python formatter
-				"pylint", -- python linter
+				"ruff", -- python formatter + linter (replaces isort/black/pylint)
 				"eslint_d", -- js linter
 			},
 		})
