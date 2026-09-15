@@ -40,6 +40,22 @@ keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" }) --  
 keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" }) --  go to previous tab
 keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
 
+-- buffer management
+keymap.set("n", "<leader>bl", "<cmd>Telescope buffers<CR>", { desc = "List buffers" }) -- fuzzy-find open buffers
+keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Go to alternate buffer" }) -- toggle last two buffers
+keymap.set("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "Go to next buffer" }) -- follows bufferline order, not buffer number
+keymap.set("n", "<leader>bp", "<cmd>BufferLineCyclePrev<CR>", { desc = "Go to previous buffer" })
+keymap.set("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete current buffer" })
+-- close all but current; skips modified and unlisted (terminal, REPL) buffers
+keymap.set("n", "<leader>bo", function()
+  local cur = vim.api.nvim_get_current_buf()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if buf ~= cur and vim.bo[buf].buflisted and not vim.bo[buf].modified then
+      vim.api.nvim_buf_delete(buf, {})
+    end
+  end
+end, { desc = "Delete other buffers" })
+
 -- tilde and backticks
 vim.api.nvim_set_keymap("i", "<A-/>", "~", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "a'", "``<Esc>i", { noremap = true, silent = true })

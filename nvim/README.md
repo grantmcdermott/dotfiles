@@ -58,7 +58,7 @@ open). Plugins are auto-installed on first launch.
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------- |
 | [tokyonight.nvim](https://github.com/folke/tokyonight.nvim)                          | Colorscheme                                              |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim)                         | Status line                                              |
-| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)                        | Tab-style buffer bar                                     |
+| [bufferline.nvim](https://github.com/akinsho/bufferline.nvim)                        | Tab-style bar listing open buffers                       |
 | [alpha-nvim](https://github.com/goolord/alpha-nvim)                                  | Dashboard start screen                                   |
 | [which-key.nvim](https://github.com/folke/which-key.nvim)                            | Shows available keybindings after pressing leader        |
 | [indent-blankline.nvim](https://github.com/lukas-reineke/indent-blankline.nvim)      | Indentation guides                                       |
@@ -136,7 +136,31 @@ when reaching for `:q`. Playback (`@<register>`) is unchanged.
 | `<space>fc` | Grep string under cursor           |
 | `<space>ft` | Find TODOs                         |
 
+### Buffers
+
+Buffers are the working unit for switching between files; the bufferline
+along the top reflects them left to right. `<space>bn`/`<space>bp` follow
+that visible order rather than buffer numbers.
+
+| Key         | Action                                            |
+| ----------- | ------------------------------------------------- |
+| `<space>bl` | List/fuzzy-find open buffers (Telescope)          |
+| `<space>bb` | Alternate buffer (same as `Ctrl-^`)               |
+| `<space>bn` | Next buffer                                       |
+| `<space>bp` | Previous buffer                                   |
+| `<space>bd` | Delete current buffer                             |
+| `<space>bo` | Delete other buffers (skips modified + terminals) |
+
+Opening a file from nvim-tree with `Enter` loads it as a new buffer, so
+`<space>bb` toggles back to the previous one. Inside the Telescope buffer
+picker, `<C-d>` deletes the selected buffer.
+
 ### Splits & Tabs
+
+Tabpages are window *layouts*, not file containers — buffers and REPL
+processes are global and reachable from any tab. Reach for tabs when you
+want a distinct window arrangement or a per-tab working directory
+(`:tcd`); use the buffer mappings above to move between files.
 
 | Key         | Action                    |
 | ----------- | ------------------------- |
@@ -213,7 +237,7 @@ when reaching for `:q`. Playback (`@<register>`) is unchanged.
 | Key         | Action                   |
 | ----------- | ------------------------ |
 | `<space>l`  | Trigger linting          |
-| `<space>gl` | Open Lazy plugin manager |
+| `<space>ll` | Open Lazy plugin manager |
 | `<space>mp` | Format file/selection    |
 
 ### AI (CodeCompanion)
