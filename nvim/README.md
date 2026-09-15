@@ -335,24 +335,26 @@ your project: `uv add ipython`.
 - **[ruff](https://docs.astral.sh/ruff/)** — formatting, import sorting, and linting
 - **pyright** — completions, hover, type checking
 
-ruff replaces an earlier isort + black + pylint trio, so one binary now covers
-all three roles. Two consequences worth knowing:
+Both come from mason, so there is no separate setup step. Don't install a
+second ruff (`uv tool install`, Homebrew): mason prepends its `bin` to nvim's
+`PATH` and would shadow it, leaving format-on-save and the shell on different
+versions.
 
-- `ruff format` is black-compatible, meaning it reflows from the syntax tree
-  rather than honouring your line breaks. A short method chain is collapsed
-  onto one line; a long one keeps its vertical layout but glues the first call
-  to its subject (`dat.drop_nulls()`). Fence a block in `# fmt: off` /
-  `# fmt: on` when the layout matters.
-- ruff's default lint rules are narrow (pyflakes plus a few pycodestyle
-  errors), so expect far less noise than pylint gave. Widen them per project
-  in `pyproject.toml`:
+`ruff format` is black-compatible, so it reflows from the syntax tree rather
+than honouring your line breaks. A short method chain collapses onto one line;
+a long one keeps its vertical layout but glues the first call to its subject
+(`dat.drop_nulls()`). Fence a block in `# fmt: off` / `# fmt: on` where the
+layout matters.
 
-  ```toml
-  [tool.ruff.lint]
-  select = ["E", "F", "I", "UP", "B", "SIM"]
-  ```
+Default lint rules are narrow — pyflakes plus a few pycodestyle errors. Widen
+them per project in `pyproject.toml`:
 
-Python buffers use a 4-space indent, overriding the global 2 to match ruff's
-output. `g:python_indent` in `core/options.lua` gives a single indent level
-inside an open paren and returns a lone closing paren to the statement's own
-indent, which suits parenthesised polars/pandas chains.
+```toml
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+```
+
+Python buffers indent by 4, overriding the global 2 to match ruff's output.
+`g:python_indent` in `core/options.lua` gives a single indent level inside an
+open paren and returns a lone closing paren to the statement's own indent,
+which suits parenthesised polars/pandas chains.

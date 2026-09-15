@@ -22,8 +22,9 @@ vim.g.python_indent = {
   closed_paren_align_last_line = false,
 }
 
--- python convention (and black's output) is 4 spaces, not the global 2
+-- python convention (and ruff's output) is 4 spaces, not the global 2
 vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("python_indent", { clear = true }),
   pattern = "python",
   callback = function()
     vim.bo.tabstop = 4
