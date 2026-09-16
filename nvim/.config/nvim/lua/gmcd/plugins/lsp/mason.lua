@@ -48,7 +48,8 @@ return {
 			ensure_installed = {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
-				"ruff", -- python formatter + linter (replaces isort/black/pylint)
+				"ruff", -- python linter + import sorting
+				"autopep8", -- python formatter; minimally invasive, preserves method chains
 				"eslint_d", -- js linter
 			},
 		})

@@ -10,15 +10,28 @@ workflow.
 **macOS (Homebrew):**
 
 ```bash
-brew install neovim lazygit ripgrep fd
+brew install neovim lazygit ripgrep fd tree-sitter-cli
 brew install --cask font-meslo-lg-nerd-font
 ```
 
 **Arch Linux (pacman):**
 
 ```bash
-sudo pacman -S neovim lazygit ripgrep fd ttf-meslo-nerd
+sudo pacman -S neovim lazygit ripgrep fd ttf-meslo-nerd tree-sitter-cli
 ```
+
+> [!IMPORTANT]
+> `tree-sitter-cli` (**0.26.1 or later**) is required, not optional.
+> nvim-treesitter's `main` branch shells out to the `tree-sitter` binary to
+> compile parsers; without it every `install()` fails and you silently get no
+> syntax highlighting and no treesitter-dependent features — e.g. `Cmd+Enter`
+> quietly degrades from sending a whole statement to sending a single line.
+> A C compiler must also be present, since parsers are built per machine.
+>
+> Two gotchas: on macOS the `tree-sitter` formula is the library only, so
+> install `tree-sitter-cli`; and upstream advises against the npm build, so use
+> your package manager or `cargo install tree-sitter-cli`. Debian/Ubuntu apt
+> versions are all still below 0.26.1 — use cargo there.
 
 ## Plugins
 

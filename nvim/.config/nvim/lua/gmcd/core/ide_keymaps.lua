@@ -10,14 +10,32 @@ keymap("v", "<D-/>", "gc", { remap = true, desc = "Toggle comment (selection)" }
 keymap("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment (line)" })
 keymap("v", "<C-/>", "gc", { remap = true, desc = "Toggle comment (selection)" })
 
+-- Park the cursor on the next non-blank line at or after `lnum`, so repeated
+-- sends walk down the buffer as they do in RStudio. Clamps at the last line.
+local function advance_cursor(lnum)
+	local last = vim.api.nvim_buf_line_count(0)
+	lnum = math.min(lnum, last)
+	while lnum < last and vim.fn.getline(lnum):match("^%s*$") do
+		lnum = lnum + 1
+	end
+	vim.api.nvim_win_set_cursor(0, { lnum, 0 })
+end
+
 -- Send the whole statement under the cursor, so a multi-line expression (e.g. a
 -- parenthesised method chain) goes as one unit with no visual selection needed.
 -- Mirrors R.nvim / RStudio behaviour.
 local function python_send_statement()
 	local iron = require("iron.core")
+	-- get_node reads an already-parsed tree, so force a parse first rather than
+	-- relying on highlighting having painted this buffer yet.
+	pcall(function()
+		vim.treesitter.get_parser(0):parse()
+	end)
 	local ok, node = pcall(vim.treesitter.get_node)
 	if not ok or not node or node:type() == "module" then
-		iron.send_line() -- no parser, or cursor on a blank line
+		-- no parser, or cursor on a blank line
+		iron.send_line()
+		advance_cursor(vim.fn.line(".") + 1)
 		return
 	end
 	-- Climb to the outermost node within the enclosing scope. Stopping at "block"
@@ -35,9 +53,7 @@ local function python_send_statement()
 		erow = erow - 1 -- range ends on the line *after* the statement
 	end
 	iron.send(vim.bo.filetype, vim.api.nvim_buf_get_lines(0, srow, erow + 1, false))
-	-- Advance cursor past the statement just sent
-	local last = vim.api.nvim_buf_line_count(0)
-	vim.api.nvim_win_set_cursor(0, { math.min(erow + 2, last), 0 })
+	advance_cursor(erow + 2)
 end
 
 -- Cmd+Enter (macOS) and Ctrl+Enter (Linux) to send code to REPL
@@ -56,8 +72,13 @@ local function send_selection_to_repl()
 	if ft == "r" or ft == "rmd" or ft == "quarto" then
 		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Plug>RSendSelection", true, true, true), "m", false)
 	elseif ft == "python" then
+		-- Read the selection end while still in visual mode; '> is not set until exit
+		local last_selected = math.max(vim.fn.line("v"), vim.fn.line("."))
 		require("iron.core").visual_send()
 		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, true, true), "n", false)
+		vim.schedule(function()
+			advance_cursor(last_selected + 1)
+		end)
 	end
 end
 

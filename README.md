@@ -124,6 +124,7 @@ In order to clone my setup exactly, you need the following:
 - [**Oh My Zsh**](https://ohmyz.sh/) + [**Powerlevel10k**](https://github.com/romkatv/powerlevel10k) + zsh-autosuggestions + zsh-syntax-highlighting
 - [**Neovim**](https://neovim.io/) (≥ 0.10) — my primary editor and what much of my config is built around
 - [**ripgrep**](https://github.com/BurntSushi/ripgrep), [**fd**](https://github.com/sharkdp/fd), [**lazygit**](https://github.com/jesseduffield/lazygit) — used by Neovim plugins
+- [**tree-sitter-cli**](https://github.com/tree-sitter/tree-sitter) (≥ 0.26.1) — nvim-treesitter compiles parsers with it
 
 You can either click on these links to install everything manually, or expand
 the installation _tl;dr_ blocks below to get to get the appropriate shell
@@ -135,9 +136,12 @@ commands for your OS.
 <summary><b>macOS</b></summary>
 
 ```bash
-brew install neovim lazygit ripgrep fd stow
+brew install neovim lazygit ripgrep fd stow tree-sitter-cli
 brew install --cask font-meslo-lg-nerd-font ghostty raycast
 ```
+
+Note that `tree-sitter-cli` is the one you want; the `tree-sitter` formula
+installs the library without the binary.
 
 Raycast config lives in its internal database, not in dotfiles; see
 [`raycast/README.md`](raycast/README.md) for the export/import workflow.
@@ -149,7 +153,8 @@ Raycast config lives in its internal database, not in dotfiles; see
 
 ```bash
 # Core tools
-sudo pacman -S neovim lazygit ripgrep fd stow ghostty ttf-meslo-nerd zsh
+sudo pacman -S neovim lazygit ripgrep fd stow ghostty ttf-meslo-nerd zsh \
+  tree-sitter-cli base-devel
 # If ghostty is not in the repos yet:
 # yay -S ghostty
 
@@ -172,10 +177,21 @@ Note: I haven't tested these; please let me know if they work for you.
 
 ```bash
 sudo apt update
-sudo apt install lazygit ripgrep fd-find stow zsh
+sudo apt install lazygit ripgrep fd-find stow zsh build-essential
 # `fd` is installed as `fdfind` on Debian/Ubuntu; alias it if you like:
 #   ln -s $(which fdfind) ~/.local/bin/fd
+
+# tree-sitter-cli: apt's versions are too old (see note below), so use cargo
+cargo install tree-sitter-cli
 ```
+
+> [!IMPORTANT]
+> nvim-treesitter's `main` branch needs the `tree-sitter` binary (**0.26.1 or
+> later**) to compile parsers. Every Ubuntu apt version is still below that
+> floor — 0.20.8 on 24.04 LTS, 0.22.6 on 25.10, 0.25.9 on 26.04 LTS — so
+> install it with `cargo` instead. Upstream advises against the npm build.
+> Without a working CLI you silently get no syntax highlighting and no
+> treesitter-dependent features.
 
 > [!IMPORTANT]
 > Ubuntu's default apt repos usually ship an older Neovim than this config
