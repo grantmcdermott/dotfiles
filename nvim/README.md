@@ -320,8 +320,17 @@ is used automatically.
 
 `Cmd+Enter` sends the whole statement under the cursor, so a method chain
 spanning several lines goes as one unit with no visual selection needed.
-Treesitter locates the enclosing statement; inside a `def`/`for`/`if` body the
-individual statement is sent rather than the whole surrounding construct.
+Treesitter locates the enclosing statement, then the cursor moves to the next
+non-blank line, so repeated presses walk down the buffer as in RStudio.
+
+With the cursor on a `def`/`for`/`if` line the whole construct is sent. That
+also happens from a line *inside* the body, because the cursor sits in the
+indentation and treesitter resolves column 0 to the enclosing block; select the
+lines visually to send just part of a body.
+
+This needs the python parser, so `tree-sitter-cli` is a hard requirement (see
+[System Dependencies](#system-dependencies)) — without it this silently
+degrades to sending one line at a time.
 
 The uv.nvim default keymap prefix is changed from `<leader>x` to `<leader>u`
 to avoid conflicting with trouble.nvim diagnostics.
@@ -345,19 +354,27 @@ your project: `uv add ipython`.
 
 ### Python tooling stack
 
-- **[ruff](https://docs.astral.sh/ruff/)** — formatting, import sorting, and linting
+- **[autopep8](https://github.com/hhatto/autopep8)** — formatting
+- **[ruff](https://docs.astral.sh/ruff/)** — import sorting and linting
 - **pyright** — completions, hover, type checking
 
-Both come from mason, so there is no separate setup step. Don't install a
+All come from mason, so there is no separate setup step. Don't install a
 second ruff (`uv tool install`, Homebrew): mason prepends its `bin` to nvim's
 `PATH` and would shadow it, leaving format-on-save and the shell on different
 versions.
 
-`ruff format` is black-compatible, so it reflows from the syntax tree rather
-than honouring your line breaks. A short method chain collapses onto one line;
-a long one keeps its vertical layout but glues the first call to its subject
-(`dat.drop_nulls()`). Fence a block in `# fmt: off` / `# fmt: on` where the
-layout matters.
+autopep8 rather than `ruff format` (or black) because it is minimally invasive:
+it only fixes actual PEP 8 violations instead of reflowing from the syntax tree,
+so hand-broken leading-dot polars/pandas chains survive a save. ruff and black
+both discard your line breaks and rejoin anything fitting the line limit,
+collapsing a chain onto one line; yapf does too, even with `SPLIT_BEFORE_DOT`.
+Neither has an option to preserve chain breaks, which is why `# fmt: off` /
+`# fmt: on` used to be necessary here. It no longer is.
+
+The trade-off is a less opinionated formatter: no quote normalisation, no
+enforced trailing commas, and long lines are not reflowed into a canonical
+shape. Run with `-a -a` (see `plugins/formatting.lua`) to get the non-whitespace
+fixes as well. Widen ruff's lint rules to pick up some of the slack.
 
 Default lint rules are narrow — pyflakes plus a few pycodestyle errors. Widen
 them per project in `pyproject.toml`:
@@ -367,7 +384,7 @@ them per project in `pyproject.toml`:
 select = ["E", "F", "I", "UP", "B", "SIM"]
 ```
 
-Python buffers indent by 4, overriding the global 2 to match ruff's output.
+Python buffers indent by 4, overriding the global 2 to match PEP 8.
 `g:python_indent` in `core/options.lua` gives a single indent level inside an
 open paren and returns a lone closing paren to the statement's own indent,
 which suits parenthesised polars/pandas chains.
