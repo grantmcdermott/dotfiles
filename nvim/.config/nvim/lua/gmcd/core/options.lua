@@ -33,7 +33,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- line wrapping
-opt.wrap = false -- disable line wrapping
+opt.wrap = true -- soft-wrap at the window edge
+opt.linebreak = true -- break at word boundaries, not mid-word
+opt.breakindent = true -- keep wrapped lines visually indented
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching

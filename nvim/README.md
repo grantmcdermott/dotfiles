@@ -187,6 +187,18 @@ want a distinct window arrangement or a per-tab working directory
 | `<space>tn` | Next tab                  |
 | `<space>tp` | Previous tab              |
 | `<space>tf` | Current buffer in new tab |
+| `<space>sw` | Toggle soft wrap at 80 columns |
+
+Lines soft-wrap at the window edge by default (`wrap` + `linebreak` +
+`breakindent`, so wrapped lines break on words and stay indented). Nothing is
+written to the file — use `gq` for that, and `vipJ` to unwrap a paragraph
+again.
+
+Neovim can only wrap at the window edge, so `<space>sw` (`:SoftWrap`) moves
+the edge inward: it pads the window with an empty scratch split until the text
+area is exactly 80 columns, and pins the width while active. Pass a count for
+other widths (`:SoftWrap 100`); toggle off to drop the pad and re-equalize.
+Useful on a wide monitor where full-width prose is hard to read.
 
 ### Git (gitsigns)
 

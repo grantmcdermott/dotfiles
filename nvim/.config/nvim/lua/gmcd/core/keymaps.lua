@@ -56,6 +56,9 @@ keymap.set("n", "<leader>bo", function()
   end
 end, { desc = "Delete other buffers" })
 
+-- soft wrap at column 80 instead of the terminal edge
+keymap.set("n", "<leader>sw", "<cmd>SoftWrap<CR>", { desc = "Toggle soft wrap at 80 columns" })
+
 -- tilde and backticks
 vim.api.nvim_set_keymap("i", "<A-/>", "~", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "a'", "``<Esc>i", { noremap = true, silent = true })
