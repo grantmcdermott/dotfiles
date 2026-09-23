@@ -9,7 +9,7 @@ Grant McDermott's personal dotfiles, managed with [GNU Stow](https://www.gnu.org
 ```
 dotfiles/
 ├── shell/          → ~/.zshrc, ~/.p10k.zsh
-├── R/              → ~/.Rprofile, ~/.lintr, ~/.radian_profile
+├── R/              → ~/.Rprofile, ~/.lintr, ~/.config/arf/
 ├── nvim/           → ~/.config/nvim/
 ├── ghostty/        → ~/.config/ghostty/
 ├── claude/         → (not stowed; see below)
@@ -222,8 +222,11 @@ components on your machine:
   \+ Air + Jarl; see `nvim/README.md`), so no extra terminal REPL is strictly
   needed. If you also want a nicer REPL when launching R directly from the
   terminal or VS Code, install [arf](https://github.com/eitsupi/arf) — the
-  `R/.config/arf/` config here enables vi mode and matches the old radian
-  setup. The `.Rprofile` also auto-starts a
+  `R/.config/arf/arf.toml` config here enables vi mode and matches the old
+  radian setup. (arf looks in `~/.config/arf/` on Linux but
+  `~/Library/Application Support/arf/` on macOS, so the `R` package ships a
+  symlink for the latter pointing back at the same file; `stow R` covers both
+  platforms.) The `.Rprofile` also auto-starts a
   [corteza](https://github.com/cornball-ai/corteza) MCP session if the
   package is installed (optional, for AI tooling).
 - **Python** — requires [uv](https://github.com/astral-sh/uv) on `PATH` for
