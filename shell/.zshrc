@@ -1,3 +1,18 @@
+
+# Kiro CLI pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+
+# Kiro CLI (macOS only; Amazon's agentic CLI). The block above and the one at
+# the very bottom are written by `kiro-cli integrations install dotfiles`,
+# which scans this file to detect them — so they live here rather than in
+# ~/.zshrc.local, which would just get them re-added on the next update.
+# Kiro also *repositions* them, forcing its pre block first and its post
+# block last, so nothing can be appended after the latter. The `[[ -f ]]`
+# guards make both silent no-ops wherever that path is absent (Linux, or
+# macOS without Kiro installed) — the only cost there is that the failed
+# guard leaves $? = 1, which can tint the first p10k prompt char red until
+# you run a command.
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,3 +48,6 @@ export PATH
 
 # Machine-specific overrides (not tracked in git)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# Kiro CLI post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
