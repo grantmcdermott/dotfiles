@@ -17,3 +17,6 @@
 !agents/**
 !skills/
 !skills/**
+
+# Auto-synced by Claude Code (claude.ai skills cache)
+skills/synced/
