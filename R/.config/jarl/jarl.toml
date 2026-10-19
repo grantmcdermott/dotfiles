@@ -1,0 +1,9 @@
+# Mirrors the disabled linters in ../../.lintr. lintr's line_length,
+# commented_code, object_name, whitespace, and semicolon linters have no
+# jarl equivalent.
+[lint]
+ignore = [
+    "assignment",
+    "quotes",
+    "vector_logic",
+]
