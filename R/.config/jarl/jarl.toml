@@ -1,9 +1,9 @@
-# Mirrors the disabled linters in ../../.lintr. lintr's line_length,
-# commented_code, object_name, whitespace, and semicolon linters have no
-# jarl equivalent.
+# Mirrors ../../.lintr. lintr's commented_code, line_length, object_name,
+# object_usage, semicolon, and whitespace linters have no direct jarl
+# equivalent.
 [lint]
-ignore = [
-    "assignment",
-    "quotes",
-    "vector_logic",
-]
+extend-select = ["assignment"] # not a default rule
+ignore = ["quotes"]
+
+[lint.assignment]
+operator = "="
