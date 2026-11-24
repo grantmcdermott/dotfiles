@@ -62,3 +62,12 @@ keymap.set("n", "<leader>sw", "<cmd>SoftWrap<CR>", { desc = "Toggle soft wrap at
 -- tilde and backticks
 vim.api.nvim_set_keymap("i", "<A-/>", "~", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "a'", "``<Esc>i", { noremap = true, silent = true })
+
+-- VS Code (vscode-neovim): restore Vim's own gq; the extension maps it to
+-- VS Code formatting. Its mappings are set via --cmd, before this file runs.
+if vim.g.vscode then
+	pcall(keymap.del, { "n", "x" }, "gq")
+	pcall(keymap.del, "n", "gqq")
+	-- gq wraps at 'textwidth'; 0 (default) means wrap at 79
+	vim.opt.textwidth = 80
+end
